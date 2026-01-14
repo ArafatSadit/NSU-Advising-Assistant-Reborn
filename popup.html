@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NSU Advising Assistant</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container" id="app">
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l9 4-9 4-9-4 9-4z" />
+            <path d="M3 10l9 4 9-4" />
+            <path d="M3 14l9 4 9-4" />
+          </svg>
+          <h1>NSU Advising Assistant</h1>
+        </div>
+        <div class="theme-toggle">
+          <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle theme">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="website-notice">
+        <svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <span>Checks run against <strong><a href="https://rds3.northsouth.edu/" target="_blank" rel="noreferrer">rds3.northsouth.edu</a></strong> only.</span>
+      </section>
+
+      <section class="input-section">
+        <h2 class="section-title">
+          <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"></path>
+            <path d="M12 4h9"></path>
+            <path d="M4 9h16"></path>
+            <path d="M4 15h16"></path>
+          </svg>
+          Track Courses
+        </h2>
+        <div class="input-group">
+          <label class="input-label" for="courseCode">
+            <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            </svg>
+            Course Code
+          </label>
+          <div class="input-wrapper">
+            <input class="course-input" id="courseCode" type="text" placeholder="e.g. CSE115" autocomplete="off" />
+            <input class="course-input" id="courseSection" type="text" placeholder="Section (optional)" autocomplete="off" />
+            <button class="add-btn" id="addCourse" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Add
+            </button>
+          </div>
+          <div class="error" id="courseError"></div>
+        </div>
+
+        <div class="course-list-container">
+          <ul class="course-list" id="courseList"></ul>
+          <div class="empty-state" id="courseEmpty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span>No courses added yet.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="control-section">
+        <h2 class="section-title">
+          <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          Monitoring Controls
+        </h2>
+        <div class="input-group">
+          <label class="input-label" for="intervalSeconds">
+            <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Check Interval
+          </label>
+          <div class="input-wrapper number-input-wrapper">
+            <input class="number-input" id="intervalSeconds" type="number" min="1" max="3600" step="1" />
+            <span class="input-suffix">seconds</span>
+          </div>
+        </div>
+        <div class="controls">
+          <button class="btn btn-primary" id="startMonitoring" type="button">Start Monitoring</button>
+          <button class="btn btn-secondary" id="stopMonitoring" type="button">Stop Monitoring</button>
+        </div>
+        <button class="btn btn-accent" id="checkNow" type="button">Run Check Now</button>
+      </section>
+
+      <section class="status-section">
+        <h2 class="section-title">
+          <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"></path>
+            <path d="M18 17V9"></path>
+            <path d="M13 17V5"></path>
+            <path d="M8 17v-3"></path>
+          </svg>
+          Status
+        </h2>
+        <div class="status-card">
+          <div class="status-item">
+            <span class="status-label">Monitoring</span>
+            <span class="status-value" id="monitoringStatus">Stopped</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Interval</span>
+            <span class="status-value" id="intervalStatus">30 sec</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Last Check</span>
+            <span class="status-value" id="lastCheckStatus">Never</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="activity-section">
+        <h2 class="section-title">
+          <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+          Status Log
+        </h2>
+        <div class="activity-container">
+          <ul class="activity-log" id="activityLog"></ul>
+          <div class="activity-empty" id="activityEmpty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12h18"></path>
+              <path d="M3 6h18"></path>
+              <path d="M3 18h18"></path>
+            </svg>
+            <span>No activity yet.</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <p class="footer-text">Built for NSU seat monitoring. Check often during registration.</p>
+        <p class="review-text">Notifications trigger when a course shows open seats.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
